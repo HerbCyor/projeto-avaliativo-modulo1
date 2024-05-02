@@ -12,7 +12,7 @@ const User = connection.define('users', {
     password: { type: DataTypes.STRING }, // senha
 })
 
-// relation one-to-many User : UserName (1 user may have more than one address)
+// relation one-to-many User : UserName (1 user may have more than one)
 UserAddress.belongsTo(User, { foreignKey: "user_id" })
 User.hasMany(UserAddress, {
     foreignKey: 'user_id',
@@ -25,4 +25,4 @@ User.beforeSave(async (user) => {
     return user
 })
 
-module.exports = UserAddress
+module.exports = User

@@ -16,7 +16,7 @@ async function validateSignUp(req, res, next) {
                 return res.status(400).json({ message: `O campo [${value}] é obrigatório.` })
             }
         }
-        if (!birth_date.match(/\d{4}-\d{2}-\d{2}/gm)) {
+        if (!userData.birth_date.match(/\d{4}-\d{2}-\d{2}/gm)) {
             return res.status(400).json({ message: 'A data de nascimento não está no formato correto (YYYY-MM-DD).' })
         }
 

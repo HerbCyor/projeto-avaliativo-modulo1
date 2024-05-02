@@ -1,4 +1,5 @@
 'use strict';
+const { hash } = require('bcryptjs')
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
       birth_date: "2000-10-10",
       gender: "male",
       email: "johndoe@mail.com",
-      password: "password123",
+      password: await hash("password123", 8),
       createdAt: new Date,
       updatedAt: new Date
 
