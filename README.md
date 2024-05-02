@@ -27,11 +27,18 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
 - git clone 
 - npm install
 - criar .env com as variáveis de ambiente 
-- sequelize-cli db:migrate
+- ```npx sequelize-cli db:migrate```
+- ```npx sequelize-cli db:seed:all```
+
 ### Inicializando o servidor
 - npx run start:dev
 
 ## Informações do Applicativo
+
+### Usuário básico de testes
+- email: johndoe@mail.com
+- senha: password123
+
 ### Rotas
 - /login  [ POST ]
 - /usuario [ POST ]
@@ -39,13 +46,15 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
 - /local/local_id [ GET, POST, PUT, DELETE ]
 - /local/local_id/maps [ GET ]
 
+
+
 ### Modelos
 - ### User
     modelo de usuario
     - nome completo
     - sexo
     - cpf
-    - endereço
+    - endereço 
     - data de nascimento
     - e-mail
     - senha
@@ -98,6 +107,10 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
  ┗ 📜.env
  
  ```
+## Melhorias Futuras
+- multiplas escolhas para sexo
+- validação cpf na database
+- database com cidades do brasil
 
  ## Links Externos
  - video de apresentação
