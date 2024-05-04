@@ -4,38 +4,37 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
 
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('points_of_interest', {
       id: {
-        allowNull: false,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      full_name: {
         allowNull: false,
+      },
+
+      name: {
         type: Sequelize.STRING,
+        allowNull: false
       },
-      cpf: {
-        allowNull: false,
+
+      description: {
         type: Sequelize.STRING,
-        unique: true
+        allowNull: false
       },
-      birth_date: {
-        allowNull: false,
-        type: Sequelize.DATE
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "users",
+            schema: "public"
+          },
+          key: "id"
+        },
+        allowNull: false
       },
-      gender: {
+      googleMapsUrl: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
@@ -52,7 +51,8 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('users');
+
+    await queryInterface.dropTable('points_of_interest');
 
   }
 };

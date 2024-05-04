@@ -4,18 +4,18 @@ const UserAddress = require('./UserAddress')
 const { hash } = require('bcryptjs')
 
 const User = connection.define('users', {
-    full_name: { type: DataTypes.STRING }, // nome completo
+    fullName: { type: DataTypes.STRING }, // nome completo
     cpf: { type: DataTypes.STRING }, // CPF
-    birth_date: { type: DataTypes.DATE }, // data de nascimento
+    birthDate: { type: DataTypes.DATE }, // data de nascimento
     gender: { type: DataTypes.STRING }, // genero/sexo
     email: { type: DataTypes.STRING }, // email
     password: { type: DataTypes.STRING }, // senha
 })
 
 // relation one-to-many User : UserName (1 user may have more than one)
-UserAddress.belongsTo(User, { foreignKey: "user_id" })
+UserAddress.belongsTo(User, { foreignKey: "userId" })
 User.hasMany(UserAddress, {
-    foreignKey: 'user_id',
+    foreignKey: 'userId',
     onDelete: 'CASCADE'
 })
 

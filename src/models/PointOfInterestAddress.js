@@ -1,7 +1,7 @@
 const { connection } = require('../database/connection')
 const { DataTypes } = require('sequelize')
 
-const UserAddress = connection.define('user_address', {
+const PointOfInterestAddress = connection.define('point_of_interest_address', {
     streetName: { type: DataTypes.STRING },  // nome da rua
     number: { type: DataTypes.STRING }, // numero
     area: { type: DataTypes.STRING }, // bairro
@@ -9,10 +9,9 @@ const UserAddress = connection.define('user_address', {
     state: { type: DataTypes.STRING }, // estado
     country: { type: DataTypes.STRING }, // pais
     areaCode: { type: DataTypes.STRING }, // CEP
-    userId: { type: DataTypes.INTEGER } // id de usuario fk
 
 })
 
 
 
-module.exports = UserAddress
+module.exports = PointOfInterestAddress

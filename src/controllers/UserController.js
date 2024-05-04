@@ -4,17 +4,17 @@ class UserController {
 
     async signUp(req, res) {
         try {
-            const full_name = req.body.full_name
+            const fullName = req.body.fullName
             const cpf = req.body.cpf
-            const birth_date = req.body.birth_date
+            const birthDate = req.body.birthDate
             const gender = req.body.gender
             const email = req.body.email
             const password = req.body.password
 
             const newUser = await User.create({
-                full_name,
+                fullName,
                 cpf,
-                birth_date,
+                birthDate,
                 gender,
                 email,
                 password
