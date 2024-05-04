@@ -7,5 +7,8 @@ module.exports = {
     username: process.env.USERNAMEDB,
     password: process.env.PASSWORDDB,
     database: process.env.DATABASE,
-    port: process.env.PORT
+    port: process.env.PORT,
+    define: {
+        freezeTableName: true
+    }
 };
