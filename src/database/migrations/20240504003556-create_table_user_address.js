@@ -11,7 +11,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      street_name: {
+      streetName: {
         allowNull: false,
         type: Sequelize.STRING,
       },
@@ -44,10 +44,21 @@ module.exports = {
         type: Sequelize.STRING,
 
       },
-      area_code: {
+      areaCode: {
         allowNull: false,
         type: Sequelize.STRING,
 
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "users",
+            schema: "public",
+          },
+          key: "id",
+        },
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
