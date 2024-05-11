@@ -21,7 +21,10 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
 - express 
 - sequelize 
 - jsonwebtoken
-
+- bcryptjs
+- swagger-autogen
+- swagger-ui-express
+- axios
 
 ### Primeiros passos
 - git clone 
@@ -45,8 +48,7 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
 - /local [ GET, POST ]
 - /local/local_id [ GET, POST, PUT, DELETE ]
 - /local/local_id/maps [ GET ]
-
-
+- /docs [ GET ]
 
 ### Modelos
 - ### User
@@ -63,9 +65,6 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
     modelo de ponto de interesse/área natural
     - nome
     - descrição
-    - endereço
-    - coordenadas geográficas
-    - usuario id
 
 - ### UserAddress
     modelo de endereço de usuários
@@ -85,25 +84,63 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
     - estado
     - país
     - cep
+- ### PoIGeolocation
+    modelo de geolocalização de Pontos de Interesse
+    - latitude
+    - longitude
 
 ## Estrutura do Aplicativo
 ```
 📦.
- ┣ 📂src
- ┃  ┣ 📂config
- ┃  ┃ ┗ 📜database.config.js
- ┃  ┣ 📂database
- ┃  ┃ ┗ 📜connection.js
- ┃  ┣ 📂routes
- ┃  ┃ ┗ 📜routes.js
- ┃  ┣ 📜index.js
- ┃  ┗ 📜server.js
+ 📦src
+ ┣ 📂config
+ ┃ ┗ 📜database.config.js
+ ┣ 📂controllers
+ ┃ ┣ 📜LoginController.js
+ ┃ ┣ 📜PointOfInterestController.js
+ ┃ ┗ 📜UserController.js
+ ┣ 📂database
+ ┃ ┣ 📂migrations
+ ┃ ┃ ┣ 📜20240504003521-create_table_users.js
+ ┃ ┃ ┣ 📜20240504003556-create_table_user_address.js
+ ┃ ┃ ┣ 📜20240504003621-create_table_points_of_interest.js
+ ┃ ┃ ┣ 📜20240504003655-create_table_points_of_interest_address.js
+ ┃ ┃ ┗ 📜20240504003743-create_table_points_of_interest_geolocation.js
+ ┃ ┣ 📂seeders
+ ┃ ┃ ┗ 📜20240501230047-demo-user.js
+ ┃ ┗ 📜connection.js
+ ┣ 📂middlewares
+ ┃ ┣ 📜auth.js
+ ┃ ┣ 📜ValidatePointOfInterestData.js
+ ┃ ┣ 📜validatePointOfInterestOwnership.js
+ ┃ ┣ 📜validatePointOfInterestUpdate.js
+ ┃ ┗ 📜ValidateSignUp.js
+ ┣ 📂models
+ ┃ ┣ 📜PointOfInterest.js
+ ┃ ┣ 📜PointOfInterestAddress.js
+ ┃ ┣ 📜PointOfInterestGeolocation.js
+ ┃ ┣ 📜User.js
+ ┃ ┗ 📜UserAddress.js
+ ┣ 📂routes
+ ┃ ┣ 📜login.route.js
+ ┃ ┣ 📜pointofinterest.route.js
+ ┃ ┣ 📜routes.js
+ ┃ ┗ 📜user.route.js
+ ┣ 📂utils
+ ┃ ┣ 📜googlemaps.js
+ ┃ ┣ 📜openstreetmap.js
+ ┃ ┗ 📜utils.js
+ ┣ 📜index.js
+ ┣ 📜server.js
  ┃
  ┣ 📜package.json
  ┣ 📜package-lock.json
  ┣ 📜README.md
  ┣ 📜LICENSE
  ┣ 📜.gitignore
+ ┣ 📜swagger-output.json
+ ┣ 📜swagger.js
+ ┣ 📜.sequelizerc
  ┗ 📜.env
  
  ```

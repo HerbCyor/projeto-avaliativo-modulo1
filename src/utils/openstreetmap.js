@@ -1,38 +1,20 @@
+const axios = require('axios')
+
 module.exports = async function (address) {
 
-    // extract values from address
-    const addressValues = Object.values(address)
-    const addressWordsArray = []
-    // strips every word of the address into an array
-
-    addressWordsArray.push(...address.streetName.split(" "))
-    addressWordsArray.push(address.number.toString())
-
-    // addressValues.forEach((element) => {
-    //     typeof (element) != "string" ? element = element.toString() : element // converts elements that are not strings into strings
-    //     addressWordsArray.push(...element.split(" "))
-    // })
-
-    // concatenates every word in the array with a '+' between them
-    const query_string = addressWordsArray.join("+") + "&format=jsonv2"
-    // base openstreetmap search url
-    const base_url = "https://nominatim.openstreetmap.org/search.php?q="
-    // extract values from address object and constructs the query
-    const query_url = base_url + query_string
+    const streetName = address.streetName.split(" ").join("+") + "+" + address.number.toString()
+    const query_url = `https://nominatim.openstreetmap.org/search.php?street=${streetName}&city=${address.city}&county=${address.area}&state=${address.state}&country=${address.country}&format=jsonv2`
     console.log(query_url)
+    const response = await axios.get(query_url)
 
-    return await fetch(query_url).then((response) => {
-        return response.json()
-    }).then((data) => {
-        return {
-            lat: data[0].lat, //latitude
-            lon: data[0].lon, // longitude
+    const lat = response.data[0] ? response.data[0].lat : 0.0 //latitude
+    const lon = response.data[0] ? response.data[0].lon : 0.0 // longitude
 
-        }
-    })
+    return {
+        lat: lat,
+        lon: lon,
 
-
-
+    }
 }
 
 

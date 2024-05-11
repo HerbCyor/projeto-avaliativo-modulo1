@@ -1,0 +1,513 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "tittle": "Nature 365",
+    "description": "Description",
+    "version": "1.0.0",
+    "title": "REST API"
+  },
+  "host": "127.0.0.1:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/docs": {
+      "get": {
+        "tags": [
+          "Documentação"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/usuarios/": {
+      "post": {
+        "tags": [
+          "Usuários"
+        ],
+        "summary": "criação de usuários",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddUser"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/login/": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "rota de login",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "seuemail@mail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna o token do ususário.",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/local/": {
+      "post": {
+        "tags": [
+          "Locais da Natureza"
+        ],
+        "summary": "Registra um novo Local",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreatePointOfInterest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Locais da Natureza"
+        ],
+        "summary": "Lista todos os locais registrados pelo usuário autenticado",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a specific user.",
+            "schema": {
+              "$ref": "#/definitions/PointOfInterestArray"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/local/{local_id}": {
+      "put": {
+        "tags": [
+          "Locais da Natureza"
+        ],
+        "summary": " Atualiza os dados de um Local pelo Id",
+        "description": " O usuário logado só pode atualizar seus próprios locais. <br>\r  Campos em branco serão sobrescritos (apagados) <br>\r  Campos ausentes não são atualizados <br>\r  ",
+        "parameters": [
+          {
+            "name": "local_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdatePointOfInterest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Locais da Natureza"
+        ],
+        "summary": "Deleta um local do usuário pelo Id",
+        "description": " O usuário só pode deletar seus próprios locais.",
+        "parameters": [
+          {
+            "name": "local_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Locais da Natureza"
+        ],
+        "summary": "Lista os dados de um Local pelo Id",
+        "description": "Lista apenas um local se pertencer ao usuário logado.",
+        "parameters": [
+          {
+            "name": "local_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a specific user.",
+            "schema": {
+              "$ref": "#/definitions/UpdatePointOfInterest"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/local/{local_id}/maps": {
+      "get": {
+        "tags": [
+          "Locais da Natureza"
+        ],
+        "summary": " Retorna uma url do google maps do Local",
+        "description": "",
+        "parameters": [
+          {
+            "name": "local_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PointOfInterestGeolocation": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "example": 0
+        },
+        "longitude": {
+          "type": "number",
+          "example": 0
+        }
+      }
+    },
+    "PointOfInterestAddress": {
+      "type": "object",
+      "properties": {
+        "streetName": {
+          "type": "string",
+          "example": "sdfsdfsdf"
+        },
+        "number": {
+          "type": "string",
+          "example": "sdfsdf"
+        },
+        "area": {
+          "type": "string",
+          "example": "sdfsdf"
+        },
+        "city": {
+          "type": "string",
+          "example": ""
+        },
+        "state": {
+          "type": "string",
+          "example": ""
+        },
+        "country": {
+          "type": "string",
+          "example": ""
+        },
+        "areaCode": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "CreatePointOfInterest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": ""
+        },
+        "description": {
+          "type": "string",
+          "example": "description"
+        },
+        "address": {
+          "$ref": "#/definitions/PointOfInterestAddress"
+        }
+      }
+    },
+    "UpdatePointOfInterest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Parque Nacional de Itaipu"
+        },
+        "description": {
+          "type": "string",
+          "example": "Reserva Ambiental"
+        },
+        "address": {
+          "$ref": "#/definitions/PointOfInterestAddress"
+        },
+        "geolocation": {
+          "$ref": "#/definitions/PointOfInterestGeolocation"
+        }
+      }
+    },
+    "PointOfInterestArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/UpdatePointOfInterest"
+      }
+    },
+    "UserAddress": {
+      "type": "object",
+      "properties": {
+        "streetName": {
+          "type": "string",
+          "example": ""
+        },
+        "number": {
+          "type": "string",
+          "example": ""
+        },
+        "area": {
+          "type": "string",
+          "example": ""
+        },
+        "city": {
+          "type": "string",
+          "example": ""
+        },
+        "state": {
+          "type": "string",
+          "example": ""
+        },
+        "country": {
+          "type": "string",
+          "example": ""
+        },
+        "areaCode": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "AddUser": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string",
+          "example": ""
+        },
+        "cpf": {
+          "type": "string",
+          "example": ""
+        },
+        "birthDate": {
+          "type": "string",
+          "example": ""
+        },
+        "gender": {
+          "type": "string",
+          "example": ""
+        },
+        "email": {
+          "type": "string",
+          "example": ""
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        },
+        "address": {
+          "$ref": "#/definitions/UserAddress"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "Your Token."
+        }
+      }
+    }
+  }
+}

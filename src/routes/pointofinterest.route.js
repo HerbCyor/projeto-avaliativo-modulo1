@@ -8,7 +8,7 @@ const pointOfInterestRoutes = new Router()
 
 
 pointOfInterestRoutes.post('/', auth, validatePointOfInterestData, PointOfInterestController.registerPointOfInterest)
-pointOfInterestRoutes.put('/:local_id', auth, validatePointOfInterestUpdate, PointOfInterestController.updateOnePointOfInterest)
+pointOfInterestRoutes.put('/:local_id', auth, validatePointOfInterestOwnership, validatePointOfInterestUpdate, PointOfInterestController.updateOnePointOfInterest)
 pointOfInterestRoutes.delete('/:local_id', auth, validatePointOfInterestOwnership, PointOfInterestController.deleteOnePointOfInterest)
 pointOfInterestRoutes.get('/', auth, PointOfInterestController.getAllPointsOfInterest)
 pointOfInterestRoutes.get('/:local_id', auth, validatePointOfInterestOwnership, PointOfInterestController.getOnePointOfInterest)
