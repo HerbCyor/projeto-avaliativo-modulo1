@@ -3,6 +3,17 @@ const User = require('../models/User')
 class UserController {
 
     async signUp(req, res) {
+
+        /* 
+            #swagger.tags = ['Usuários']
+            #swagger.summary = 'criação de usuários'
+            
+            #swagger.parameters['body'] = {
+                in: 'body',
+                schema:{ $ref: '#/definitions/AddUser' }
+            }
+        */
+
         try {
             const fullName = req.body.fullName
             const cpf = req.body.cpf
@@ -22,8 +33,8 @@ class UserController {
             res.status(201).json(newUser)
 
         } catch (error) {
-            console.log(error.message)
-            res.statuts(500).json({ message: "Não foi possível cadastrar o usuário." })
+            console.log(error)
+            res.status(500).json({ message: "Não foi possível cadastrar o usuário." })
         }
 
     }

@@ -12,6 +12,4 @@ const PointOfInterestAddress = connection.define('point_of_interest_address', {
 
 })
 
-
-
 module.exports = PointOfInterestAddress
