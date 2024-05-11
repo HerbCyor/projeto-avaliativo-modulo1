@@ -15,6 +15,7 @@ const doc = {
         PointOfInterestAddress: {
             streetName: 'sdfsdfsdf',
             number: 'sdfsdf',
+            complement: '',
             area: 'sdfsdf',
             city: '',
             state: '',
@@ -42,6 +43,7 @@ const doc = {
         UserAddress: {
             streetName: '',
             number: '',
+            complement: '',
             area: '',
             city: '',
             state: '',

@@ -249,8 +249,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
           },
           "401": {
             "description": "Unauthorized"
@@ -372,6 +372,10 @@
           "type": "string",
           "example": "sdfsdf"
         },
+        "complement": {
+          "type": "string",
+          "example": ""
+        },
         "area": {
           "type": "string",
           "example": "sdfsdf"
@@ -443,6 +447,10 @@
           "example": ""
         },
         "number": {
+          "type": "string",
+          "example": ""
+        },
+        "complement": {
           "type": "string",
           "example": ""
         },

@@ -3,6 +3,7 @@ async function validatePointOfInterestData(req, res, next) {
     const pointOfInterestData = {
         streetName: req.body.address.streetName,  // nome da rua
         number: req.body.address.number, // numero
+        complement: req.body.address.complement, // complemento
         area: req.body.address.area, // bairro
         city: req.body.address.city, // cidade
         state: req.body.address.state, // estado
