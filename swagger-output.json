@@ -366,35 +366,35 @@
       "properties": {
         "streetName": {
           "type": "string",
-          "example": "sdfsdfsdf"
+          "example": "Nome da rua"
         },
         "number": {
           "type": "string",
-          "example": "sdfsdf"
+          "example": "Numero"
         },
         "complement": {
           "type": "string",
-          "example": ""
+          "example": "Complemento"
         },
         "area": {
           "type": "string",
-          "example": "sdfsdf"
+          "example": "Bairro"
         },
         "city": {
           "type": "string",
-          "example": ""
+          "example": "Cidade"
         },
         "state": {
           "type": "string",
-          "example": ""
+          "example": "Estado"
         },
         "country": {
           "type": "string",
-          "example": ""
+          "example": "País"
         },
         "areaCode": {
           "type": "string",
-          "example": ""
+          "example": "CEP"
         }
       }
     },
@@ -403,11 +403,11 @@
       "properties": {
         "name": {
           "type": "string",
-          "example": ""
+          "example": "Nome do Local"
         },
         "description": {
           "type": "string",
-          "example": "description"
+          "example": "Descrição do local"
         },
         "address": {
           "$ref": "#/definitions/PointOfInterestAddress"
@@ -444,35 +444,35 @@
       "properties": {
         "streetName": {
           "type": "string",
-          "example": ""
+          "example": "Nome da rua"
         },
         "number": {
           "type": "string",
-          "example": ""
+          "example": "Numero"
         },
         "complement": {
           "type": "string",
-          "example": ""
+          "example": "Complemento"
         },
         "area": {
           "type": "string",
-          "example": ""
+          "example": "Bairro"
         },
         "city": {
           "type": "string",
-          "example": ""
+          "example": "Cidade"
         },
         "state": {
           "type": "string",
-          "example": ""
+          "example": "Estado"
         },
         "country": {
           "type": "string",
-          "example": ""
+          "example": "País"
         },
         "areaCode": {
           "type": "string",
-          "example": ""
+          "example": "CEP"
         }
       }
     },
@@ -481,27 +481,27 @@
       "properties": {
         "fullName": {
           "type": "string",
-          "example": ""
+          "example": "Nome Completo"
         },
         "cpf": {
           "type": "string",
-          "example": ""
+          "example": "012345678910"
         },
         "birthDate": {
           "type": "string",
-          "example": ""
+          "example": "YYYY-MM-DD"
         },
         "gender": {
           "type": "string",
-          "example": ""
+          "example": "sexo"
         },
         "email": {
           "type": "string",
-          "example": ""
+          "example": "email@email.com"
         },
         "password": {
           "type": "string",
-          "example": ""
+          "example": "senha"
         },
         "address": {
           "$ref": "#/definitions/UserAddress"
