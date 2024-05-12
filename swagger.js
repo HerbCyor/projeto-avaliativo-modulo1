@@ -13,17 +13,18 @@ const doc = {
             longitude: 0.0,
         },
         PointOfInterestAddress: {
-            streetName: 'sdfsdfsdf',
-            number: 'sdfsdf',
-            area: 'sdfsdf',
-            city: '',
-            state: '',
-            country: '',
-            areaCode: '',
+            streetName: 'Nome da rua',
+            number: 'Numero',
+            complement: 'Complemento',
+            area: 'Bairro',
+            city: 'Cidade',
+            state: 'Estado',
+            country: 'País',
+            areaCode: 'CEP',
         },
         CreatePointOfInterest: {
-            name: '',
-            description: 'description',
+            name: 'Nome do Local',
+            description: 'Descrição do local',
             address: {
                 $ref: '#/definitions/PointOfInterestAddress'
             }
@@ -40,21 +41,22 @@ const doc = {
         },
         PointOfInterestArray: [{ $ref: '#/definitions/UpdatePointOfInterest' }],
         UserAddress: {
-            streetName: '',
-            number: '',
-            area: '',
-            city: '',
-            state: '',
-            country: '',
-            areaCode: '',
+            streetName: 'Nome da rua',
+            number: 'Numero',
+            complement: 'Complemento',
+            area: 'Bairro',
+            city: 'Cidade',
+            state: 'Estado',
+            country: 'País',
+            areaCode: 'CEP',
         },
         AddUser: {
-            fullName: '',
-            cpf: '',
-            birthDate: '',
-            gender: '',
-            email: '',
-            password: '',
+            fullName: 'Nome Completo',
+            cpf: '012345678910',
+            birthDate: 'YYYY-MM-DD',
+            gender: 'sexo',
+            email: 'email@email.com',
+            password: 'senha',
             address: {
                 $ref: '#/definitions/UserAddress'
             }

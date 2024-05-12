@@ -24,6 +24,7 @@ class PointOfInterestController {
             const pointOfInterestAddressData = {
                 streetName: req.body.address.streetName,  // nome da rua
                 number: req.body.address.number, // numero
+                complement: req.body.address.complement,
                 area: req.body.address.area, // bairro
                 city: req.body.address.city, // cidade
                 state: req.body.address.state, // estado
