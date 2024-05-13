@@ -21,7 +21,7 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
 ## Configuração do Ambiente
 
 ### Bibliotecas utilizadas
-- node 
+- node.js
 - express 
 - sequelize 
 - jsonwebtoken
@@ -31,7 +31,7 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
 - axios
 
 ### Primeiros passos
-- ```git clone``` 
+- ```git clone https://github.com/HerbCyor/projeto-avaliativo-modulo1.git``` 
 - ```npm install```
 - criar .env com as variáveis de ambiente 
 - ```npx sequelize-cli db:migrate```
@@ -168,3 +168,6 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
 - favoritos
 - maior abrangência de informações sobre os locais
 - comentários e avaliações
+
+## Video da apresentação
+![video](https://drive.google.com/file/d/1I-AEGhsLZNOUIDeu-BRkBCGvOiBNDTDM/view?usp=sharing)
