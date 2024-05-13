@@ -170,4 +170,4 @@ O objetivo deste projeto é entregar um MPV (minimum viable product) da aplicaç
 - comentários e avaliações
 
 ## Video da apresentação
-![video](https://drive.google.com/file/d/1I-AEGhsLZNOUIDeu-BRkBCGvOiBNDTDM/view?usp=sharing)
+[video](https://drive.google.com/file/d/1I-AEGhsLZNOUIDeu-BRkBCGvOiBNDTDM/view?usp=sharing)
