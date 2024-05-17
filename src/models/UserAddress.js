@@ -4,6 +4,7 @@ const { DataTypes } = require('sequelize')
 const UserAddress = connection.define('user_address', {
     streetName: { type: DataTypes.STRING },  // nome da rua
     number: { type: DataTypes.STRING }, // numero
+    complement: { type: DataTypes.STRING },
     area: { type: DataTypes.STRING }, // bairro
     city: { type: DataTypes.STRING }, // cidade
     state: { type: DataTypes.STRING }, // estado

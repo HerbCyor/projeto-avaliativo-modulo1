@@ -8,24 +8,35 @@ config()
 
 class PointOfInterestController {
     async registerPointOfInterest(req, res) {
+
+        /* 
+            #swagger.tags = ['Locais da Natureza']
+            #swagger.summary = 'Registra um novo Local'
+            #swagger.parameters['body'] = {
+                in: 'body',
+                schema:{ $ref: '#/definitions/CreatePointOfInterest'}
+             }
+        
+        */
+
         try {
 
             const pointOfInterestAddressData = {
-                streetName: req.body.streetName,  // nome da rua
-                number: req.body.number, // numero
-                area: req.body.area, // bairro
-                city: req.body.city, // cidade
-                state: req.body.state, // estado
-                country: req.body.country, // pais
-                areaCode: req.body.areaCode, // CEP
+                streetName: req.body.address.streetName,  // nome da rua
+                number: req.body.address.number, // numero
+                complement: req.body.address.complement,
+                area: req.body.address.area, // bairro
+                city: req.body.address.city, // cidade
+                state: req.body.address.state, // estado
+                country: req.body.address.country, // pais
+                areaCode: req.body.address.areaCode, // CEP
             }
 
             console.log(pointOfInterestAddressData)
             const { lat, lon } = await utils.getGeolocation(pointOfInterestAddressData) //fetch geolocation from api util :: busca dados da api open street map 
             // usando utils.openstreetmap 
 
-            const decoded = verify(req.headers.authorization, process.env.JWT_SECRET) // get user id
-            const userId = decoded.sub
+            const userId = req.payload.sub
 
             const googleMapsUrl = await utils.googleMapsUrl(lat, lon) //to do: create googleMapsUrl :: cria url do google maps utilizando utils.googlemaps
 
@@ -50,7 +61,7 @@ class PointOfInterestController {
 
             const newGeolocation = await PointOfInterestGeolocation.create(pointOfInterestAddressGeolocationData) // create new geolocation in database:: novas coordenadas na database
 
-            return res.status(201).json({ message: "Local cadastrado com sucesso", local: newPointOfInterest })
+            return res.status(201).json({ message: "Local cadastrado com sucesso", local: newPointOfInterest, coordenadas: newGeolocation })
         } catch (error) {
             console.log(error)
             return res.status(500).json("Houve um erro ao cadastrar o local")
@@ -60,9 +71,20 @@ class PointOfInterestController {
     }
 
     async getAllPointsOfInterest(req, res) {
+
+        /* 
+            #swagger.tags = ['Locais da Natureza']
+            #swagger.summary = 'Lista todos os locais registrados pelo usuário autenticado'
+            #swagger.responses[200] = {
+                description: 'Get a specific user.',
+                schema: { $ref: '#/definitions/PointOfInterestArray' }
+            }
+        
+        */
+
         try {
-            const decoded = verify(req.headers.authorization, process.env.JWT_SECRET) // get user id
-            const userId = decoded.sub
+
+            const userId = req.payload.sub
 
             const pointsOfInterest = await PointOfInterest.findAll({ // find all PoIs fron the logged user
                 where: {
@@ -83,6 +105,17 @@ class PointOfInterestController {
     }
 
     async getOnePointOfInterest(req, res) {
+
+        /* 
+            #swagger.tags = ['Locais da Natureza']
+            #swagger.summary = 'Lista os dados de um Local pelo Id'
+            #swagger.description = 'Lista apenas um local se pertencer ao usuário logado.'
+            #swagger.responses[200] = {
+                description: 'Get a specific user.',
+                schema: { $ref: '#/definitions/UpdatePointOfInterest' }
+            }
+        */
+
 
         try {
             const pointOfInterestId = req.params.local_id // Point Of Interest id
@@ -112,6 +145,13 @@ class PointOfInterestController {
     }
     async deleteOnePointOfInterest(req, res) {
 
+        /* 
+            #swagger.tags = ['Locais da Natureza']
+            #swagger.summary = 'Deleta um local do usuário pelo Id'
+            #swagger.description = ' O usuário só pode deletar seus próprios locais.'
+        */
+
+
         try {
             const pointOfInterestId = req.params.local_id
 
@@ -120,18 +160,30 @@ class PointOfInterestController {
                 return res.status(404).json("Local não encontrado")
             }
 
+            // delete a geolocalização
+            await PointOfInterestGeolocation.destroy({
+                where: {
+                    id: await PointOfInterestAddress.findOne({
+                        where: {
+                            PointOfInterestId: pointOfInterest.id
+                        }
+                    }).then((data) => data.id)
+                }
+            })
+            //deleta o endereço
             await PointOfInterestAddress.destroy({ //delete address associated with Point of Interest :: deletar endereço associado ao Local
                 where: {
                     PointOfInterestId: pointOfInterest.id
                 }
             })
 
+            //delete o local
             await PointOfInterest.destroy({ // delete Point of Interest :: deletar o Local
                 where: {
                     id: pointOfInterestId
                 }
             })
-            res.status(200).json({ message: "Local deletado com sucesso." })
+            res.status(204).json({ message: "Local deletado com sucesso." })
 
         } catch (error) {
             console.log(error)
@@ -140,6 +192,21 @@ class PointOfInterestController {
     }
 
     async updateOnePointOfInterest(req, res) {
+
+        /* 
+            #swagger.tags = ['Locais da Natureza']
+            #swagger.summary = ' Atualiza os dados de um Local pelo Id'
+            #swagger.description = ' O usuário logado só pode atualizar seus próprios locais. <br>
+                Campos em branco serão sobrescritos (apagados) <br>
+                Campos ausentes não são atualizados <br>
+            '
+             #swagger.parameters['body'] = {
+                in: 'body',
+                schema:{ $ref: '#/definitions/UpdatePointOfInterest'}
+             }
+        
+        */
+
 
         try {
             const pointOfInterestId = req.params.local_id
@@ -182,6 +249,14 @@ class PointOfInterestController {
 
 
     async getPointOfInterestGoogleMapsUrl(req, res) {
+
+        /* 
+            #swagger.tags = ['Locais da Natureza']
+            #swagger.summary = ' Retorna uma url do google maps do Local'
+             
+        
+        */
+
         try {
             const pointOfInterestId = req.params.local_id
 

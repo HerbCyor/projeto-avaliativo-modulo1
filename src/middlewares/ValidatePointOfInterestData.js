@@ -1,14 +1,16 @@
 async function validatePointOfInterestData(req, res, next) {
 
     const pointOfInterestData = {
-        streetName: req.body.streetName,  // nome da rua
-        number: req.body.number, // numero
-        area: req.body.area, // bairro
-        city: req.body.city, // cidade
-        state: req.body.state, // estado
-        country: req.body.country, // pais
-        areaCode: req.body.areaCode, // CEP
-        description: req.body.description // descrição
+        streetName: req.body.address.streetName,  // nome da rua
+        number: req.body.address.number, // numero
+        complement: req.body.address.complement, // complemento
+        area: req.body.address.area, // bairro
+        city: req.body.address.city, // cidade
+        state: req.body.address.state, // estado
+        country: req.body.address.country, // pais
+        areaCode: req.body.address.areaCode, // CEP
+        description: req.body.description, // descrição
+        name: req.body.name
     }
 
     for (const [key, value] of Object.entries(pointOfInterestData)) {
@@ -16,6 +18,8 @@ async function validatePointOfInterestData(req, res, next) {
             return res.status(400).json({ message: `O campo [${value}] é obrigatório.` })
         }
     }
+
+    // to do: validação de cep
     next()
 }
 

@@ -1,10 +1,26 @@
-const { compare, hash } = require('bcryptjs')
+const { compare } = require('bcryptjs')
 const User = require("../models/User")
 const { sign } = require('jsonwebtoken')
 
 class LoginController {
 
     async login(req, res) {
+
+        /*  #swagger.tags = ['Login']
+            #swagger.parameters['body'] = {
+                in:'body',
+                description:'rota de login',
+                schema:{
+                    $email: "seuemail@mail.com",
+                    $password:"password"
+                }
+            }
+            #swagger.responses[200] = {
+                description: 'Retorna o token do ususário.',
+                schema: { $ref: '#/definitions/Login' }
+            }
+        */
+
         try {
             const email = req.body.email
             const password = req.body.password
